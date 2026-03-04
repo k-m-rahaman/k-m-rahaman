@@ -1,3 +1,5 @@
+<img width="1727" height="432" alt="Screenshot 2026-03-04 111250" src="https://github.com/user-attachments/assets/31074feb-6eeb-40ea-a982-a584a78cf678" />
+
 # Hi, I'm Kazi Mustafijur Rahaman 👋
 
 🎓 B.Tech Computer Science Engineering (AI/ML) Student  
