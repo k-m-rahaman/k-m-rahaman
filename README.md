@@ -51,7 +51,7 @@
 ---
 
 ## 🎯 Career Goal
-To become a skilled AI/ML Engineer and contribute to impactful technology solutions.
+`To become a skilled AI/ML Engineer and contribute to impactful technology solutions.`
 
 --- 
 
@@ -60,7 +60,7 @@ To become a skilled AI/ML Engineer and contribute to impactful technology soluti
 
 ---
 
-## Stats
+## 📈 Stats
 ![GitHub Stats](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=k-m-rahaman&theme=github_dark)
 
 </div>
@@ -68,3 +68,6 @@ To become a skilled AI/ML Engineer and contribute to impactful technology soluti
 <div align="center">
   <img src="https://visitor-badge.laobi.icu/badge?page_id=k-m-rahaman.k-m-rahaman&"  />
 </div>
+
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=k-m-rahaman&layout=donut&theme=github_dark&bg_color=000000&title_color=ffffff&text_color=ffffff&border_color=30363d)](https://github.com/anuraghazra/github-readme-stats)
+
