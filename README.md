@@ -33,6 +33,15 @@
 
 ## 🤝 Connect With Me
 
+<p align="left">
+<a href="https://github.com/k-m-rahaman" rel="nofollow">
+  <img src="https://camo.githubusercontent.com/64c2dca383a0818820b283ce8573f47f83a25e1f32a03dade8ec712762ab65fa/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f547769747465722d3030303030303f7374796c653d666f722d7468652d6261646765266c6f676f3d78266c6f676f436f6c6f723d7768697465" alt="Twitter/X" data-canonical-src="https://img.shields.io/badge/Twitter-000000?style=for-the-badge&amp;logo=x&amp;logoColor=white" style="max-width: 100%;"></a>
+  <a href="https://www.linkedin.com/in/kazi-mustafijur-rahaman-b830bb3b4/" rel="nofollow">
+  <img src="https://camo.githubusercontent.com/001e7c1208607ee80e3312e50ab901a71a2a16af693e1367b605d720bbe9b79d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e6b6564496e2d3041363643323f7374796c653d666f722d7468652d6261646765266c6f676f3d6c696e6b6564696e266c6f676f436f6c6f723d7768697465" alt="LinkedIn" data-canonical-src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&amp;logo=linkedin&amp;logoColor=white" style="max-width: 100%;"></a>
+<a href="https://www.instagram.com/kmrfacts786/ rel="nofollow">
+  <img src="https://camo.githubusercontent.com/be49b008b2b350f82b104c71c6c4168ab1f09448919a354bdc47aea0cbf042a2/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f496e7374616772616d2d4534343035463f7374796c653d666f722d7468652d6261646765266c6f676f3d696e7374616772616d266c6f676f436f6c6f723d7768697465" alt="Instagram" data-canonical-src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&amp;logo=instagram&amp;logoColor=white" style="max-width: 100%;"></a>
+  
+---
 
 ## 📈 Current Focus
 - Strengthening problem-solving skills  
