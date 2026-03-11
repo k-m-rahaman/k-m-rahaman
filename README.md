@@ -2,10 +2,13 @@
 
 # Hi, I'm Kazi Mustafijur Rahaman 👋
 
-🎓 B.Tech Computer Science Engineering (AI/ML) Student  
-🤖 Passionate about Artificial Intelligence & Machine Learning  
-💻 Currently learning Programming, Data Structures & Web Development  
-🚀 Focused on building strong fundamentals and real-world projects  
+`🎓 B.Tech Computer Science Engineering (AI/ML) Student  `
+
+`🤖 Passionate about Artificial Intelligence & Machine Learning`  
+
+`💻 Currently learning Programming, Data Structures & Web Development  `
+
+`🚀 Focused on building strong fundamentals and real-world projects  `
 
 ---
 
@@ -24,9 +27,12 @@
                 <img src="https://skillicons.dev/icons?i=py" alt="python" width="40" height="40"/> </a></p>
 
 
-- Git | GitHub | VS Code
+- `Git` | `GitHub` | `VS Code`
 
 ---
+
+## 🤝 Connect With Me
+
 
 ## 📈 Current Focus
 - Strengthening problem-solving skills  
@@ -38,8 +44,7 @@
 ## 🎯 Career Goal
 To become a skilled AI/ML Engineer and contribute to impactful technology solutions.
 
----
+--- 
 
-## 📫 Connect With Me
-LinkedIn: https://www.linkedin.com/in/kazi-mustafijur-rahaman-b830bb3b4/
-Portfolio: 
+## 📫 Contact Me
+📧 Email: kmrofficial786@gmail.com
