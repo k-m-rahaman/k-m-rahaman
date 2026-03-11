@@ -57,3 +57,8 @@ To become a skilled AI/ML Engineer and contribute to impactful technology soluti
 
 ## 📫 Contact Me
 📧 Email: kmrofficial786@gmail.com
+
+---
+
+## Stats
+![KMR's GitHub stats](https://github-readme-stats.vercel.app/api?username=k-m-rahaman&show_icons=true&theme=radical)
