@@ -61,4 +61,10 @@ To become a skilled AI/ML Engineer and contribute to impactful technology soluti
 ---
 
 ## Stats
-![KMR's GitHub stats](https://github-readme-stats.vercel.app/api?username=k-m-rahaman&show_icons=true&theme=radical)
+![GitHub Stats](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=k-m-rahaman&theme=github_dark)
+
+</div>
+
+<div align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=k-m-rahaman.k-m-rahaman&"  />
+</div>
