@@ -63,6 +63,13 @@
 ## 📈 Stats
 ![GitHub Stats](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=k-m-rahaman&theme=github_dark)
 
+
+<div align="center">
+
+
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=k-m-rahaman&theme=tokyonight&hide_border=true)
+
+
 </div>
 
 <div align="center">
@@ -70,4 +77,9 @@
 </div>
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=k-m-rahaman&layout=donut&theme=github_dark&bg_color=000000&title_color=ffffff&text_color=ffffff&border_color=30363d)](https://github.com/anuraghazra/github-readme-stats)
+
+<div align="center">
+
+
+![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username=k-m-rahaman&theme=tokyo-night&hide_border=true)
 
