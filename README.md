@@ -61,7 +61,7 @@
 ---
 
 ## 📈 Stats
-![GitHub Stats](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=k-m-rahaman&theme=github_dark)
+![GitHub Stats](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=k-m-rahaman&theme=radical)
 
 
 <div align="center">
