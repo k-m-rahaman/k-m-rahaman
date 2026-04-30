@@ -83,11 +83,3 @@
 
 ![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username=k-m-rahaman&theme=tokyo-night&hide_border=true)
 
-## 🐍 Contribution Snake
-<p align="center">
-  <img src="https://raw.githubusercontent.com/k-m-rahaman/k-m-rahaman/output/github-contribution-grid-snake-dark.svg" alt="Snake Animation" />
-</p>
-
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/yusufyusie/yusufyusie/blob/main/line.gif">
-  <img src="https://github.com/yusufyusie/yusufyusie/raw/main/line.gif" alt="divider" style="max-width: 100%; display: inline-block;"/>
-</a>
