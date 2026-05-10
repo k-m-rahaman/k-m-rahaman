@@ -61,14 +61,25 @@
 ---
 
 ## 📈 Stats
-![GitHub Stats](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=k-m-rahaman&theme=radical)
+<div align="center">
+  
+<img height="158em" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=k-m-rahaman&theme=radical">
+<img height="160em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=k-m-rahaman&theme=radical">
+<img height="160em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=k-m-rahaman&theme=radical">
+<img height="179em" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=k-m-rahaman&theme=radical&utcOffset=8">
+<img height="169em" src="https://github-readme-stats.vercel.app/api?username=k-m-rahaman&theme=radical&hide_border=false&include_all_commits=false&count_private=false">
 
+
+</div>
+<div align="center">
+
+![GitHub Stats](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=k-m-rahaman&theme=radical)
+</div>
 
 <div align="center">
 
 
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=k-m-rahaman&theme=tokyonight&hide_border=true)
-
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=k-m-rahaman&theme=radical)
 
 </div>
 
