@@ -67,7 +67,7 @@
 <img height="160em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=k-m-rahaman&theme=radical">
 <img height="160em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=k-m-rahaman&theme=radical">
 <img height="179em" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=k-m-rahaman&theme=radical&utcOffset=8">
-<img height="169em" src="https://github-readme-stats.vercel.app/api?username=k-m-rahaman&theme=radical&hide_border=false&include_all_commits=false&count_private=false">
+<img height="169em" src="https://github-readme-stats-eight-theta.vercel.app/api?username=k-m-rahaman&theme=radical&hide_border=false&include_all_commits=false&count_private=false">
 
 
 </div>
@@ -87,7 +87,6 @@
   <img src="https://visitor-badge.laobi.icu/badge?page_id=k-m-rahaman.k-m-rahaman&"  />
 </div>
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=k-m-rahaman&layout=donut&theme=github_dark&bg_color=000000&title_color=ffffff&text_color=ffffff&border_color=30363d)](https://github.com/anuraghazra/github-readme-stats)
 
 <div align="center">
 
