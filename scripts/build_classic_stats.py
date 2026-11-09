@@ -88,47 +88,144 @@ def card(im,d,image,rect,color,phase):
     dash_x=x+travel*(w-segment)
     d.line((dash_x,y-3,dash_x+segment,y-3),fill=color,width=2)
 
-def frame(group,manifest,images,phase=0,mobile=False):
-    key,kicker,title,subtitle,entries=group
-    width=600 if mobile else 1200
-    pad=28 if mobile else 40
-    probe=ImageDraw.Draw(Image.new('RGB',(1,1)))
-    size=31 if mobile else 36
-    title_lines=wrap(probe,title,width-pad*2,size)
-    title_y=63
-    sub_y=title_y+len(title_lines)*(size+7)+8
+def frame(group, manifest, images, phase=0, mobile=False):
+    key, kicker, title, subtitle, entries = group
+    width = 600 if mobile else 1200
+    pad = 28 if mobile else 40
+    gap = 26
+
+    probe = ImageDraw.Draw(Image.new('RGB', (1, 1)))
+    size = 31 if mobile else 36
+    title_lines = wrap(probe, title, width - pad * 2, size)
+
+    title_y = 63
+    sub_y = title_y + len(title_lines) * (size + 7) + 8
+    sub_lines = (
+        wrap(probe, subtitle, width - pad * 2, 18)
+        if mobile else [subtitle]
+    )
+    source_y = sub_y + len(sub_lines) * 26 + 23
+
+    available = width - pad * 2
+    ratios = [
+        images[name].width / images[name].height
+        for name, _, _ in entries
+    ]
+    rectangles = []
+
     if mobile:
-        sub_lines=wrap(probe,subtitle,width-pad*2,18)
-    else:sub_lines=[subtitle]
-    source_y=sub_y+len(sub_lines)*26+23
-    slot_h=320 if mobile or len(entries)==2 else 330
-    if mobile and len(entries)==1:slot_h=200
-    source_w=(width-2*pad-26)//2 if not mobile and len(entries)==2 else width-2*pad
-    if mobile:
-        height=source_y+len(entries)*(slot_h+61)+77
-    else:height=source_y+slot_h+91
-    im=Image.new('RGB',(width,height),BG)
-    d=ImageDraw.Draw(im)
-    for y in range(height):d.line((0,y,width,y),fill=blend(BG,'#151635',.3*y/height))
-    d.rounded_rectangle((1,1,width-2,height-2),radius=22,outline=LINE,width=2)
-    d.line((pad,1,pad+min(300,width-2*pad),1),fill=CYAN,width=2)
-    d.rounded_rectangle((pad,31,pad+6,48),radius=3,fill=CYAN)
-    text(d,pad+18,29,kicker,13 if mobile else 15,CYAN,500,True)
-    for i,line in enumerate(title_lines):text(d,pad,title_y+i*(size+7),line,size,TEXT,750)
-    for i,line in enumerate(sub_lines):text(d,pad,sub_y+i*26,line,18,MUTED)
-    for i,(name,note,color) in enumerate(entries):
-        x=pad if mobile or len(entries)==1 else pad+i*(source_w+26)
-        y=source_y+i*(slot_h+61) if mobile else source_y
-        card(im,d,images[name],(x,y,source_w,slot_h),color,(phase+i*.22)%1)
-        text(d,x,y+slot_h+17,note,13 if mobile else 14,color,500,True)
-    stamp=datetime.fromisoformat(manifest['fetched_at'].replace('Z','+00:00')).strftime('%d %b %Y').upper()
-    d.line((pad,height-54,width-pad,height-54),fill=LINE,width=1)
-    if mobile:
-        text(d,pad,height-38,'Exact provider snapshots. Source links in the README.',12,MUTED)
-        text(d,pad,height-20,'UPDATED '+stamp+' / UTC',11,MUTED,500,True)
+        # Stack cards at their natural aspect ratios.
+        y = source_y
+        for ratio in ratios:
+            h = round(available / ratio)
+            rectangles.append((pad, y, available, h))
+            y += h + 61
     else:
-        text(d,pad,height-37,'Exact provider snapshots · Different cards can use different scopes and caches.',14,MUTED)
-        text(d,width-pad,height-37,'UPDATED '+stamp+' / UTC',13,MUTED,500,True,'ra')
+        # Equal heights, proportional widths: no stretching or padding.
+        row_width = available - gap * (len(entries) - 1)
+        row_height = round(row_width / sum(ratios))
+        x = pad
+
+        for index, ratio in enumerate(ratios):
+            w = round(row_height * ratio)
+
+            if index == len(ratios) - 1:
+                w = width - pad - x
+
+            rectangles.append((x, source_y, w, row_height))
+            x += w + gap
+
+    content_bottom = max(y + h for x, y, w, h in rectangles)
+    height = content_bottom + 100
+
+    im = Image.new('RGB', (width, height), BG)
+    d = ImageDraw.Draw(im)
+
+    for y in range(height):
+        d.line(
+            (0, y, width, y),
+            fill=blend(BG, '#151635', .3 * y / height)
+        )
+
+    d.rounded_rectangle(
+        (1, 1, width - 2, height - 2),
+        radius=22,
+        outline=LINE,
+        width=2
+    )
+    d.line(
+        (pad, 1, pad + min(300, width - 2 * pad), 1),
+        fill=CYAN,
+        width=2
+    )
+    d.rounded_rectangle(
+        (pad, 31, pad + 6, 48),
+        radius=3,
+        fill=CYAN
+    )
+    text(
+        d, pad + 18, 29, kicker,
+        13 if mobile else 15, CYAN, 500, True
+    )
+
+    for index, line in enumerate(title_lines):
+        text(
+            d, pad, title_y + index * (size + 7),
+            line, size, TEXT, 750
+        )
+
+    for index, line in enumerate(sub_lines):
+        text(
+            d, pad, sub_y + index * 26,
+            line, 18, MUTED
+        )
+
+    for index, ((name, note, color), rect) in enumerate(
+        zip(entries, rectangles)
+    ):
+        x, y, w, h = rect
+
+        card(
+            im, d, images[name], rect,
+            color, (phase + index * .22) % 1
+        )
+        text(
+            d, x, y + h + 17, note,
+            13 if mobile else 14, color, 500, True
+        )
+
+    stamp = datetime.fromisoformat(
+        manifest['fetched_at'].replace('Z', '+00:00')
+    ).strftime('%d %b %Y').upper()
+
+    d.line(
+        (pad, height - 54, width - pad, height - 54),
+        fill=LINE,
+        width=1
+    )
+
+    if mobile:
+        text(
+            d, pad, height - 38,
+            'Source links in the README.', 12, MUTED
+        )
+        text(
+            d, pad, height - 20,
+            'UPDATED ' + stamp + ' / UTC',
+            11, MUTED, 500, True
+        )
+    else:
+        text(
+            d, pad, height - 37,
+            'Provider snapshots may use different scopes and caches.',
+            14, MUTED
+        )
+        text(
+            d, width - pad, height - 37,
+            'UPDATED ' + stamp + ' / UTC',
+            13, MUTED, 500, True, 'ra'
+        )
+
     return im
 
 def save(group,manifest,images,mobile=False):

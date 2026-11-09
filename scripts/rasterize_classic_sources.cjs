@@ -25,7 +25,39 @@ for(const name of ['stats','repos-per-language','most-commit-language','producti
  // inline opacity:0 delays, whereas Readme Stats uses the .stagger class.
  // The grade card contains nested icon SVGs: inject at the root closing tag,
  // rather than into the first icon's closing tag.
- svg=svg.replace(/<\/svg>\s*$/,`<style>*{animation:none!important}[style*="animation:"]{opacity:1!important;animation:none!important}text{font-family:"Segoe UI",sans-serif!important}.stagger{opacity:1!important}.rank-text{transform:translate(-5px,5px) scale(1)!important}.rank-circle{stroke-dashoffset:${offset}!important}</style></svg>`);
+svg = svg.replace(
+  /<\/svg>\s*$/,
+  `<style>
+    * {
+      animation: none !important;
+    }
+
+    [style*="animation:"] {
+      opacity: 1 !important;
+      animation: none !important;
+    }
+
+    rect[data-testid="card-bg"] {
+      stroke: none !important;
+    }
+
+    text {
+      font-family: "Segoe UI", sans-serif !important;
+    }
+
+    .stagger {
+      opacity: 1 !important;
+    }
+
+    .rank-text {
+      transform: translate(-5px, 5px) scale(1) !important;
+    }
+
+    .rank-circle {
+      stroke-dashoffset: ${offset} !important;
+    }
+  </style></svg>`
+);
  const png=await sharp(Buffer.from(svg),{density:192}).png().toBuffer();
  fs.writeFileSync(path.join(output,name+'.png'),png);
  const metadata=await sharp(png).metadata();
