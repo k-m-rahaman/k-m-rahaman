@@ -20,7 +20,6 @@ for(const name of ['stats','repos-per-language','most-commit-language','producti
  // SVG rasterizers fall back to serif when Inter is unavailable in a shorthand.
  svg=svg.replaceAll("'Inter', Ubuntu, \"Helvetica Neue\", Sans-Serif", "'Segoe UI', sans-serif")
         .replaceAll("'Inter', Ubuntu, Sans-Serif", "'Segoe UI', sans-serif");
- const offset=svg.match(/to\s*\{\s*stroke-dashoffset:\s*([\d.]+)/)?.[1]||'0';
  // Snapshot animated providers in their final readable state. Streak Stats uses
  // inline opacity:0 delays, whereas Readme Stats uses the .stagger class.
  // The grade card contains nested icon SVGs: inject at the root closing tag,
@@ -53,8 +52,9 @@ svg = svg.replace(
       transform: translate(-5px, 5px) scale(1) !important;
     }
 
-    .rank-circle {
-      stroke-dashoffset: ${offset} !important;
+    .rank-circle,
+    .rank-circle-rim {
+      display: none !important;
     }
   </style></svg>`
 );

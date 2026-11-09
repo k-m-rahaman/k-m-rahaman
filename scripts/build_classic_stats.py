@@ -8,6 +8,7 @@ from datetime import datetime
 import json
 import math
 from PIL import Image, ImageDraw, ImageFont
+from render_grade_badge import render_grade_card
 
 ROOT=Path(__file__).resolve().parents[1]
 ASSETS=ROOT/'assets'
@@ -26,7 +27,7 @@ GROUPS=[
   'The language mix, seen through two different lenses.',
   [('repos-per-language','Repository distribution',CYAN),('most-commit-language','Commit distribution',VIOLET)]),
  ('overview','THE STORY IN NUMBERS','My GitHub, at a glance.',
-  'The familiar summary and grade cards, with their own data scopes.',
+  'A snapshot of the work behind the profile.',
   [('stats','Summary Cards / provider totals',CYAN),('grade','Readme Stats / current-year card',PINK)]),
  ('activity','THE RHYTHM BEHIND THE WORK','When I build. How I show up.',
   'Commit hours in India and the current contribution streak.',
@@ -71,7 +72,11 @@ def load_sources():
             source=manifest['sources'].get(name,{})
             if not source.get('ok'):
                 raise RuntimeError(f'Missing successful source: {name}; keep the prior rendered cards.')
-            image=Image.open(SOURCES/f'{name}.png').convert('RGB')
+            if name == 'grade':
+                image = render_grade_card(SOURCES/'grade.svg', ASSETS/'fonts')
+                image.save(SOURCES/'grade.png', optimize=True)
+            else:
+                image=Image.open(SOURCES/f'{name}.png').convert('RGB')
             images[name]=image
     return manifest,images
 
