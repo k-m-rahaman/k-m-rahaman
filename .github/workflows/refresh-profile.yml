@@ -1,0 +1,54 @@
+name: Refresh profile statistics
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-profile.yml'
+      - 'scripts/**'
+      - 'package.json'
+      - 'requirements.txt'
+  schedule:
+    # 01:23 UTC / 06:53 IST; scheduling can be delayed by GitHub.
+    - cron: '23 1 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: profile-stats-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install renderers
+        run: |
+          python3 -m venv .stats-venv
+          .stats-venv/bin/python -m pip install -r requirements.txt
+          npm install --no-audit --no-fund
+      - name: Refresh source cards
+        run: .stats-venv/bin/python scripts/fetch_classic_sources.py
+      - name: Render animated cards
+        run: |
+          node scripts/rasterize_classic_sources.cjs
+          .stats-venv/bin/python scripts/build_classic_stats.py
+          .stats-venv/bin/python scripts/write_stats_summary.py
+      - name: Commit statistics
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/classic-stats* assets/stats-summary.md
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: refresh original GitHub statistics"
+            git push
+          fi

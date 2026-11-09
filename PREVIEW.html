@@ -1,0 +1,528 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kazi | Midnight Spectrum README</title><style>
+ *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;padding:32px 16px;background:#080b18;color:#f1f5ff;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.shell{max-width:1100px;margin:auto;border:1px solid #283252;border-radius:14px;overflow:hidden}.bar{padding:15px 32px;border-bottom:1px solid #283252;font-size:14px;font-weight:600;background:#0d1227}.bar span{color:#91a0c4;font-weight:400;margin-left:12px}article{padding:30px}h2{font-size:24px;margin:32px 0 18px;padding-bottom:10px;border-bottom:1px solid #283252;line-height:1.25}p{margin:0 0 18px}a{color:#45e4ff;text-decoration:none}a:hover{text-decoration:underline}img{max-width:100%;height:auto;vertical-align:middle}ul{padding-left:28px;margin:0 0 18px}li{margin:8px 0}details{padding:12px 16px;background:#10152b;border:1px solid #283252;border-radius:9px}summary{cursor:pointer;color:#a78bfa}table{width:100%;border-collapse:collapse;font-size:15px;margin:18px 0}th,td{padding:10px 14px;border:1px solid #283252;text-align:left}th{background:#151b33}sub{font-size:12px;line-height:1.55;color:#91a0c4}strong{font-weight:600}@media(max-width:600px){body{padding:10px 6px}.bar{padding:12px 16px}.bar span{display:none}article{padding:12px}h2{font-size:22px;margin-top:28px}p[align=center] a img{width:150px}p[align=center]{line-height:2}table{font-size:13px}th,td{padding:8px}}
+ </style><style>/* Standalone preview effects. These styles are intentionally not part of README.md. */
+:root {
+  --preview-cyan: #45e4ff;
+  --preview-violet: #a78bfa;
+  --preview-pink: #ff64c8;
+}
+
+.preview-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  flex-wrap: wrap;
+  padding: 17px 30px;
+  background: linear-gradient(105deg, #101b35, #14132d 65%, #20132c);
+  border-bottom: 1px solid #30385c;
+}
+
+.preview-toolbar__identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: .04em;
+  color: #e5edff;
+}
+
+.preview-toolbar__identity::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--preview-cyan);
+  box-shadow: 0 0 14px #45e4ff55;
+}
+
+.preview-toolbar__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.preview-toolbar__status {
+  color: #aab7d9;
+  font-size: 12px;
+}
+
+.preview-motion-toggle {
+  appearance: none;
+  min-height: 44px;
+  padding: 9px 15px;
+  border: 1px solid #556087;
+  border-radius: 10px;
+  background: #111b35;
+  color: #d9f9ff;
+  font: 600 13px/1.35 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.preview-motion-toggle[aria-pressed="true"] {
+  border-color: var(--preview-violet);
+  color: #e7ddff;
+  background: #201a39;
+}
+
+.preview-toolbar__note {
+  flex-basis: 100%;
+  margin: -4px 0 0;
+  color: #9daed0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.preview-surface {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 16px;
+  transform-origin: center;
+  backface-visibility: hidden;
+  transition: transform .24s cubic-bezier(.2,.8,.2,1), box-shadow .24s ease, outline-color .2s ease;
+  outline: 1px solid transparent;
+  outline-offset: 2px;
+}
+
+picture.preview-surface,
+a.preview-surface--large {
+  display: block;
+}
+
+a.preview-surface--compact {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 9px;
+  touch-action: manipulation;
+}
+
+.preview-surface img {
+  display: block;
+}
+
+.preview-surface picture {
+  display: block;
+}
+
+.preview-surface--linked {
+  cursor: pointer;
+}
+
+.preview-link {
+  border-radius: 4px;
+  text-underline-offset: .22em;
+  transition: color .15s ease, text-shadow .15s ease;
+}
+
+.preview-motion-toggle:focus-visible,
+.preview-link:focus-visible,
+a.preview-surface:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--preview-cyan);
+  outline-offset: 5px;
+  box-shadow: 0 0 0 5px #45e4ff13;
+}
+
+.preview-surface.preview-pressed {
+  transform: scale(.992);
+  outline-color: #45e4ff9a;
+  box-shadow: 0 0 0 3px #45e4ff12, 0 8px 28px #8360ed24;
+}
+
+.preview-surface.preview-touched {
+  outline-color: #a78bfa;
+  box-shadow: 0 0 0 3px #a78bfa14, 0 0 24px #a78bfa24;
+}
+
+.preview-ripple {
+  position: absolute;
+  z-index: 2;
+  width: var(--ripple-size);
+  height: var(--ripple-size);
+  top: var(--ripple-top);
+  left: var(--ripple-left);
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, #67ecff45, #b094ff24 43%, #ff64c800 71%);
+  transform: scale(0);
+  opacity: .9;
+  animation: preview-ripple .66s cubic-bezier(.2,.7,.2,1) forwards;
+}
+
+@keyframes preview-ripple {
+  to { transform: scale(1); opacity: 0; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .preview-surface:hover {
+    transform: perspective(1400px) translateY(-3px) rotateX(var(--preview-rx, 0deg)) rotateY(var(--preview-ry, 0deg));
+    outline-color: #729dce85;
+    box-shadow: 0 15px 34px #05081270, 0 0 0 1px #45e4ff22, -10px 0 28px #45e4ff13, 10px 0 28px #ff64c815;
+  }
+  .preview-link:hover {
+    color: #c1f7ff;
+    text-shadow: 0 0 16px #45e4ff4a;
+  }
+  .preview-motion-toggle:hover {
+    border-color: var(--preview-cyan);
+    background: #192743;
+    box-shadow: 0 0 18px #45e4ff15;
+  }
+}
+
+@media (max-width: 600px) {
+  .preview-toolbar { padding: 15px 14px; gap: 10px 12px; }
+  .preview-toolbar__identity { font-size: 12px; }
+  .preview-toolbar__controls { gap: 8px; }
+  .preview-toolbar__status { display: none; }
+  .preview-motion-toggle { font-size: 12px; padding: 9px 12px; }
+  .preview-toolbar__note { font-size: 11px; }
+  .preview-surface { border-radius: 12px; }
+}
+
+html[data-preview-animations="paused"] .preview-surface,
+html[data-preview-animations="paused"] .preview-motion-toggle,
+html[data-preview-animations="paused"] .preview-link {
+  transition: none;
+}
+
+html[data-preview-animations="paused"] .preview-surface:hover,
+html[data-preview-animations="paused"] .preview-surface.preview-pressed {
+  transform: none;
+}
+
+html[data-preview-animations="paused"] .preview-ripple {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .preview-surface, .preview-link, .preview-motion-toggle { transition: none; }
+  .preview-surface:hover, .preview-surface.preview-pressed { transform: none; }
+  .preview-ripple { display: none; }
+}
+</style></head><body><div class="shell"><div class="bar">README.md <span>MIDNIGHT SPECTRUM / k-m-rahaman</span></div><article><!-- Upload README.md, assets/, scripts/, and .github/ together. The main visual assets are stored in this repository. -->
+
+<p align="center">
+  <picture>
+    <source media="(max-width: 600px)" srcset="./assets/hero-mobile.gif" />
+    <img src="./assets/hero.gif" width="100%" alt="Kazi Mustafijur Rahaman — B.Tech CSE student in AI and Machine Learning. Exploring AI. Engineering possibilities. Kolkata, India." />
+  </picture>
+</p>
+
+<p align="center">
+  <a href="https://www.linkedin.com/in/kazi-mustafijur-rahaman-b830bb3b4/"><img src="./assets/linkedin.png" width="150" alt="LinkedIn" /></a>
+  <a href="mailto:kmrofficial786@gmail.com"><img src="./assets/email.png" width="150" alt="Let's talk by email" /></a>
+  <a href="https://github.com/k-m-rahaman?tab=repositories"><img src="./assets/github.png" width="150" alt="Explore my repositories" /></a>
+</p>
+
+<p align="center">
+  <a href="#about-me">About</a> &nbsp; / &nbsp;
+  <a href="#tech-stack">Stack</a> &nbsp; / &nbsp;
+  <a href="#github-stats-and-grade">Stats</a> &nbsp; / &nbsp;
+  <a href="#commit-hours-and-streaks">Activity</a> &nbsp; / &nbsp;
+  <a href="#featured-work">Projects</a> &nbsp; / &nbsp;
+  <a href="#lets-connect">Connect</a>
+</p>
+
+<h2 id="about-me">About me</h2>
+<p>I&#39;m <strong>Kazi Mustafijur Rahaman</strong>, a <strong>B.Tech Computer Science Engineering student specializing in AI/ML</strong>, based in <strong>Kolkata, India</strong>.</p>
+<p>I learn by building: from programming and data structures to web applications, data analysis, and AI experiments. I&#39;m interested in the point where a useful idea becomes something people can actually use.</p>
+<ul>
+<li><strong>Learning:</strong> stronger programming fundamentals, problem solving, and machine learning concepts.</li>
+<li><strong>Building:</strong> practical projects that connect code, data, and real-world problems.</li>
+<li><strong>Working toward:</strong> becoming an AI/ML engineer with strong engineering foundations.</li>
+</ul>
+<h2 id="tech-stack">Tech stack</h2>
+<p>
+  <picture>
+    <source media="(max-width: 600px)" srcset="./assets/tech-stack-mobile.gif" />
+    <img src="./assets/tech-stack.gif" width="100%" alt="Languages: Python, C, Java, JavaScript, TypeScript. Web and data: HTML, CSS, SQL, NumPy, Pandas. Tools and design: Git, GitHub, VS Code, Linux, Figma." />
+  </picture>
+</p>
+
+<details>
+  <summary><b>Tap to explore the toolkit</b></summary>
+
+<table>
+<thead>
+<tr>
+<th align="left">Area</th>
+<th align="left">Technologies I&#39;m learning and using</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Programming</td>
+<td align="left">Python · C · Java · JavaScript · TypeScript</td>
+</tr>
+<tr>
+<td align="left">Web</td>
+<td align="left">HTML · CSS · JavaScript · TypeScript</td>
+</tr>
+<tr>
+<td align="left">Data and analysis</td>
+<td align="left">SQL · NumPy · Pandas · Data visualization</td>
+</tr>
+<tr>
+<td align="left">Development</td>
+<td align="left">Git · GitHub · VS Code · Linux</td>
+</tr>
+<tr>
+<td align="left">Design</td>
+<td align="left">Figma</td>
+</tr>
+</tbody></table>
+<p>These reflect coursework, practice, and project work; I&#39;m continuing to develop depth across them.</p>
+</details>
+
+<h2 id="github-stats-and-grade">GitHub stats and grade</h2>
+<p>
+  <a href="./assets/stats-summary.md" title="Open current values, source cards, and refresh details">
+    <picture>
+      <source media="(max-width: 600px)" srcset="./assets/classic-stats-overview-mobile.gif" />
+      <img src="./assets/classic-stats-overview.gif" width="100%" alt="Summary statistics and the provider-calculated GitHub grade at the recorded refresh time." />
+    </picture>
+  </a>
+</p>
+
+<h2 id="languages-by-repo-and-by-commit">Languages by repo and by commit</h2>
+<p>
+  <a href="./assets/stats-summary.md" title="Open current values, source cards, and refresh details">
+    <picture>
+      <source media="(max-width: 600px)" srcset="./assets/classic-stats-languages-mobile.gif" />
+      <img src="./assets/classic-stats-languages.gif" width="100%" alt="Two separate language donut charts: top languages by repository and top languages by commit." />
+    </picture>
+  </a>
+</p>
+
+<h2 id="commit-hours-and-streaks">Commit hours and streaks</h2>
+<p>
+  <a href="./assets/stats-summary.md" title="Open current values, source cards, and refresh details">
+    <picture>
+      <source media="(max-width: 600px)" srcset="./assets/classic-stats-activity-mobile.gif" />
+      <img src="./assets/classic-stats-activity.gif" width="100%" alt="Commit activity by hour in Asia/Kolkata, total contributions, current streak, and longest streak." />
+    </picture>
+  </a>
+</p>
+
+<h2 id="contribution-timeline">Contribution timeline</h2>
+<p>
+  <a href="./assets/stats-summary.md" title="Open current values, source cards, and refresh details">
+    <picture>
+      <source media="(max-width: 600px)" srcset="./assets/classic-stats-profile-mobile.gif" />
+      <img src="./assets/classic-stats-profile.gif" width="100%" alt="The original GitHub Profile Summary Cards timeline showing the last year of contributions." />
+    </picture>
+  </a>
+</p>
+
+<details>
+  <summary><b>Tap to explore the stats and their sources</b></summary>
+
+<ul>
+<li><strong>By repo:</strong> the original repository-language distribution card.</li>
+<li><strong>By commit:</strong> the original commit-language distribution card, kept separate from code-byte statistics.</li>
+<li><strong>Grade card:</strong> the provider-calculated rank, refreshed with its actual statistics.</li>
+<li><strong>Activity:</strong> commit hours use <strong>Asia/Kolkata (UTC+05:30)</strong>; the streak card uses its own provider calculation.</li>
+<li><strong>Counts:</strong> different services have their own scopes and caches, so totals can differ between cards.</li>
+</ul>
+<p><a href="./assets/stats-summary.md">View exact current values and source links →</a></p>
+</details>
+
+<h2 id="featured-work">Featured work</h2>
+<a href="https://github.com/k-m-rahaman/Ecolens">
+  <picture>
+    <source media="(max-width: 600px)" srcset="./assets/project-ecolens-mobile.png" />
+    <img src="./assets/project-ecolens.png" width="100%" alt="Explore EcoLens: AI-assisted waste sorting with image checks, multilingual disposal guidance, and campus sustainability activities." />
+  </picture>
+</a>
+
+<p><br /><br /></p>
+<a href="https://github.com/k-m-rahaman/DroneMap_AI_2.0">
+  <picture>
+    <source media="(max-width: 600px)" srcset="./assets/project-dronemap-mobile.png" />
+    <img src="./assets/project-dronemap.png" width="100%" alt="Explore DroneMap AI: a mapping prototype for detecting building footprints, reviewing boundaries, and exporting survey features from georeferenced imagery." />
+  </picture>
+</a>
+
+<p><br /><br /></p>
+<a href="https://github.com/k-m-rahaman/Python-Data-Analysis-Journey">
+  <picture>
+    <source media="(max-width: 600px)" srcset="./assets/project-data-mobile.png" />
+    <img src="./assets/project-data.png" width="100%" alt="Explore Python Data Analysis Journey: NumPy, Pandas, visualization, SQL integration, and analytical case studies using synthetic data." />
+  </picture>
+</a>
+
+<p align="center"><a href="https://github.com/k-m-rahaman?tab=repositories"><b>Explore all repositories ↗</b></a></p>
+
+<h2 id="let-39-s-connect">Let&#39;s connect</h2>
+<p>I&#39;m happy to connect with fellow learners, exchange ideas, and explore thoughtful technology projects.</p>
+<p align="center">
+  <a href="https://www.linkedin.com/in/kazi-mustafijur-rahaman-b830bb3b4/"><img src="./assets/linkedin.png" width="150" alt="Connect on LinkedIn" /></a>
+  <a href="mailto:kmrofficial786@gmail.com"><img src="./assets/email.png" width="150" alt="Email kmrofficial786@gmail.com" /></a>
+  <a href="https://www.instagram.com/kmrfacts786/"><img src="./assets/instagram.png" width="150" alt="Instagram" /></a>
+</p>
+
+<p align="center">
+  <picture>
+    <img src="./assets/footer.gif" width="100%" alt="Let's build something meaningful. AI. Data. Code. Curiosity." />
+  </picture>
+</p>
+
+<p align="center"><a href="https://visitor-badge.laobi.icu/badge?page_id=k-m-rahaman.k-m-rahaman">View the live profile visitor counter ↗</a></p>
+</article></div><script>/* Standalone preview behavior; does not imply custom hover support in GitHub Markdown. */
+(() => {
+  'use strict';
+  function initPreview() {
+    const article = document.querySelector('article');
+    if (!article || document.querySelector('.preview-toolbar')) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const fineHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const root = document.documentElement;
+    let paused = false;
+    let userChoseMotion = false;
+
+    const toolbar = document.createElement('section');
+    toolbar.className = 'preview-toolbar';
+    toolbar.setAttribute('aria-label', 'Interactive preview controls');
+    toolbar.innerHTML = '<div class="preview-toolbar__identity">INTERACTIVE PREVIEW</div>' +
+      '<div class="preview-toolbar__controls"><span class="preview-toolbar__status" aria-live="polite"></span>' +
+      '<button class="preview-motion-toggle" type="button" aria-pressed="false">Pause animations</button></div>' +
+      '<p class="preview-toolbar__note">Hover glow and touch feedback work in this preview. On GitHub, use linked cards and tap-to-expand sections.</p>';
+    article.before(toolbar);
+    const motionButton = toolbar.querySelector('button');
+    const motionStatus = toolbar.querySelector('.preview-toolbar__status');
+
+    // Record original attributes once. Responsive picture selection remains native.
+    const animatedImages = Array.from(article.querySelectorAll('img')).filter(image => /\.gif(?:[?#]|$)/i.test(image.getAttribute('src') || ''));
+    const animationRecords = animatedImages.map(image => ({
+      image,
+      src: image.getAttribute('src'),
+      srcset: image.getAttribute('srcset'),
+      sources: Array.from(image.closest('picture')?.querySelectorAll('source') || []).map(source => ({
+        element: source,
+        srcset: source.getAttribute('srcset'),
+        media: source.getAttribute('media') || ''
+      }))
+    }));
+
+    const replaceExtension = (value, from, to) => value?.replace(new RegExp('\\.' + from + '(?=([?#][^\\s,]*)?(?:\\s|,|$))', 'gi'), '.' + to);
+
+    function applyMotion(nextPaused, explicit = false) {
+      paused = nextPaused;
+      if (explicit) userChoseMotion = true;
+      root.dataset.previewAnimations = paused ? 'paused' : 'playing';
+      for (const record of animationRecords) {
+        for (const source of record.sources) {
+          let value = source.srcset;
+          if (paused) value = replaceExtension(value, 'gif', 'png');
+          // An explicit Play overrides the reduced-motion picture branch for GIFs,
+          // while pointer tilt/ripple still honor the OS reduced-motion setting.
+          else if (explicit && reducedMotion.matches && source.media.includes('prefers-reduced-motion')) value = replaceExtension(value, 'png', 'gif');
+          if (value !== null) source.element.setAttribute('srcset', value);
+        }
+        if (record.srcset !== null) record.image.setAttribute('srcset', paused ? replaceExtension(record.srcset, 'gif', 'png') : record.srcset);
+        record.image.setAttribute('src', paused ? replaceExtension(record.src, 'gif', 'png') : record.src);
+      }
+      motionButton.textContent = paused ? 'Play animations' : 'Pause animations';
+      motionButton.setAttribute('aria-pressed', String(paused));
+      motionStatus.textContent = paused ? 'Animations paused' : 'Animations playing';
+      if (paused) {
+        article.querySelectorAll('.preview-ripple').forEach(ripple => ripple.remove());
+        article.querySelectorAll('.preview-surface').forEach(surface => {
+          surface.style.removeProperty('--preview-rx');
+          surface.style.removeProperty('--preview-ry');
+          surface.classList.remove('preview-pressed');
+        });
+      }
+    }
+
+    motionButton.addEventListener('click', () => applyMotion(!paused, true));
+    reducedMotion.addEventListener('change', () => {
+      if (!userChoseMotion) applyMotion(reducedMotion.matches);
+    });
+
+    const surfaces = new Set();
+    article.querySelectorAll('picture').forEach(picture => {
+      const anchor = picture.closest('a');
+      const surface = anchor || picture;
+      surface.classList.add('preview-surface');
+      if (anchor) surface.classList.add('preview-surface--linked', 'preview-surface--large');
+      surfaces.add(surface);
+    });
+    article.querySelectorAll('a').forEach(anchor => {
+      if (anchor.querySelector('img') && !anchor.classList.contains('preview-surface')) {
+        anchor.classList.add('preview-surface', 'preview-surface--linked', 'preview-surface--compact');
+        surfaces.add(anchor);
+      } else if (!anchor.querySelector('img')) anchor.classList.add('preview-link');
+    });
+
+    function motionAllowed() { return !paused && !reducedMotion.matches; }
+
+    for (const surface of surfaces) {
+      let frame = 0;
+      let pressTimer = 0;
+      let touchTimer = 0;
+
+      surface.addEventListener('pointermove', event => {
+        if (!motionAllowed() || !fineHover.matches || event.pointerType === 'touch') return;
+        if (frame) cancelAnimationFrame(frame);
+        const x = event.clientX;
+        const y = event.clientY;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          const rect = surface.getBoundingClientRect();
+          const rx = -.9 * ((y - rect.top) / rect.height - .5);
+          const ry = 1.8 * ((x - rect.left) / rect.width - .5);
+          surface.style.setProperty('--preview-rx', rx.toFixed(2) + 'deg');
+          surface.style.setProperty('--preview-ry', ry.toFixed(2) + 'deg');
+        });
+      }, { passive: true });
+
+      surface.addEventListener('pointerleave', () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+        surface.style.removeProperty('--preview-rx');
+        surface.style.removeProperty('--preview-ry');
+        surface.classList.remove('preview-pressed');
+      }, { passive: true });
+
+      surface.addEventListener('pointerdown', event => {
+        if (event.button !== 0) return;
+        clearTimeout(pressTimer);
+        surface.classList.add('preview-pressed');
+        pressTimer = setTimeout(() => surface.classList.remove('preview-pressed'), 240);
+        if (event.pointerType === 'touch' && !surface.matches('a')) {
+          clearTimeout(touchTimer);
+          surface.classList.add('preview-touched');
+          touchTimer = setTimeout(() => surface.classList.remove('preview-touched'), 700);
+        }
+        if (!motionAllowed()) return;
+        const rect = surface.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 1.4;
+        const ripple = document.createElement('span');
+        ripple.className = 'preview-ripple';
+        ripple.setAttribute('aria-hidden', 'true');
+        ripple.style.setProperty('--ripple-size', size + 'px');
+        ripple.style.setProperty('--ripple-left', event.clientX - rect.left - size / 2 + 'px');
+        ripple.style.setProperty('--ripple-top', event.clientY - rect.top - size / 2 + 'px');
+        surface.append(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+        setTimeout(() => ripple.remove(), 800);
+      }, { passive: true });
+      surface.addEventListener('pointerup', () => surface.classList.remove('preview-pressed'), { passive: true });
+      surface.addEventListener('pointercancel', () => surface.classList.remove('preview-pressed'), { passive: true });
+    }
+
+    applyMotion(paused);
+    root.dataset.previewReady = 'true';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPreview, { once: true });
+  else initPreview();
+})();
+</script></body></html>

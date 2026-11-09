@@ -1,0 +1,8 @@
+{
+  "name": "kazi-profile-readme",
+  "private": true,
+  "version": "3.0.0",
+  "dependencies": {
+    "sharp": "0.35.5"
+  }
+}
